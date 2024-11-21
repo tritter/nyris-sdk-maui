@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0-android;net7.0-ios</TargetFrameworks>
+        <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
         <!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -11,7 +11,7 @@
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
@@ -34,10 +34,12 @@
     </ItemGroup>
 
     <ItemGroup Condition="$(TargetFramework.Contains('-android')) == true">
+        <ProjectReference Include="..\nyris.ui.Android.Camera\nyris.ui.Android.Camera.csproj" />
+        <ProjectReference Include="..\nyris.ui.Android.Cropping\nyris.ui.Android.Cropping.csproj" />
         <ProjectReference Include="..\nyris.ui.Android\nyris.ui.Android.csproj" />
-        <!-- Workaround for https://github.com/xamarin/AndroidX/issues/742 -->
-        <PackageReference Include="Xamarin.AndroidX.Activity" Version="1.7.2.2" />
-        <PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.7.2.2" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.3" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources" Version="1.7.0.3" />
+        <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.4.16" />
     </ItemGroup> 
     <ItemGroup Condition="$(TargetFramework.Contains('-ios')) == true">
         <ProjectReference Include="..\nyris.ui.iOS\nyris.ui.iOS.csproj" />

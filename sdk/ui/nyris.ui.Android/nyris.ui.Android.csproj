@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-        <TargetFramework>net7.0-android</TargetFramework>
-        <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+        <TargetFramework>net9.0-android</TargetFramework>
+        <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>Nyris.UI.Android</AssemblyName>
@@ -15,8 +15,8 @@
       <ProjectReference Include="..\nyris.ui.common\nyris.ui.common.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.4" />
-        <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources" Version="1.6.1.5" />
-        <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.4.7" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.3" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources" Version="1.7.0.3" />
+        <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.4.16" />
     </ItemGroup>
 </Project>
