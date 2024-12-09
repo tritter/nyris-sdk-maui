@@ -12,6 +12,9 @@
         <Product>Nyris.UI.Android.Cropping</Product>
     </PropertyGroup>
     <ItemGroup>
-      <None Remove="Jars\croppingview-lib-release.aar" />
+      <AndroidLibrary Update="Jars\croppingview-lib-release.aar">
+        <Bind>true</Bind>
+        <Pack>true</Pack>
+      </AndroidLibrary>
     </ItemGroup>
 </Project>
