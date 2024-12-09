@@ -9,23 +9,27 @@
         <ApplicationVersion>1</ApplicationVersion>
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <PackageId>Nyris.Demo.Android</PackageId>
-        <Authors>Nyris.Demo.Android</Authors>
-        <Company>Nyris.Demo.Android</Company>
+        <Authors>Nyris</Authors>
+        <Company>Nyris</Company>
         <Product>Nyris.Demo.Android</Product>
+        <TrimMode>full</TrimMode>
         <RootNamespace>Nyris.Demo.Android</RootNamespace>
-        <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     </PropertyGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\sdk\api\nyris.api\nyris.api.csproj" />
-      <ProjectReference Include="..\..\sdk\ui\nyris.ui.Android.Camera\nyris.ui.Android.Camera.csproj" />
-      <ProjectReference Include="..\..\sdk\ui\nyris.ui.Android.Cropping\nyris.ui.Android.Cropping.csproj" />
-      <ProjectReference Include="..\..\sdk\ui\nyris.ui.Android\nyris.ui.Android.csproj" />
-      <ProjectReference Include="..\..\sdk\ui\nyris.ui.common\nyris.ui.common.csproj" />
+      <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.4" />
+      <PackageReference Include="Xamarin.Google.Android.Material" Version="1.12.0.1" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.4" />
-      <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.2.0.1" />
-      <PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
-      <PackageReference Include="Xamarin.Google.Android.Material" Version="1.12.0.1" />
+      <AndroidResource Update="Resources\values\styles.xml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      </AndroidResource>
+      <AndroidResource Update="Resources\values\colors.xml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      </AndroidResource>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\sdk\ui\nyris.ui.Android\nyris.ui.Android.csproj" />
     </ItemGroup>
 </Project>

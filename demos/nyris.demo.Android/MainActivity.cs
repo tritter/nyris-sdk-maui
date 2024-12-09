@@ -6,19 +6,19 @@ using Nyris.UI.Android;
 
 namespace Nyris.Demo.Android;
 
-[Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, Exported = true)]
+[Activity(Label = "@string/app_name", MainLauncher = true, Exported = true)]
 public class MainActivity : AppCompatActivity
 {
     TextView _tvResult;
-    protected override void OnCreate(Bundle savedInstanceState)
+    protected override void OnCreate(Bundle? savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
-        Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
+        // Set our view from the "main" layout resource
         SetContentView(Resource.Layout.activity_main);
         _tvResult = FindViewById<TextView>(Resource.Id.tvResult);
     }
     
-
     [Export("onBtnClick")]
     public void OnValidateClick(View v)
     {
@@ -32,12 +32,12 @@ public class MainActivity : AppCompatActivity
             //.LoadLastState(true)
             .CategoryPrediction()
             // Enable me for dynamic theming
-            .Theme(new AndroidThemeConfig
-            {
-                PrimaryColor = Color.Aqua,
-                PrimaryDarkColor = Color.DarkBlue,
-                AccentColor = Color.Salmon
-            })
+            //.Theme(new AndroidThemeConfig
+            //{
+            //    PrimaryColor = Color.Aqua,
+            //    PrimaryDarkColor = Color.DarkBlue,
+            //    AccentColor = Color.Salmon
+            //})
             .Start(result =>
             {
                 if (result == null)
