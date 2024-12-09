@@ -12,6 +12,9 @@
         <Product>Nyris.UI.Android.Camera</Product>
     </PropertyGroup>
     <ItemGroup>
-      <None Remove="Jars\camera-lib-release.aar" />
+      <AndroidLibrary Update="Jars\camera-lib-release.aar">
+        <Bind>true</Bind>
+        <Pack>true</Pack>
+      </AndroidLibrary>
     </ItemGroup>
 </Project>
