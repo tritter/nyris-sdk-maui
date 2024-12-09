@@ -8,7 +8,6 @@ using Android.OS;
 using Nyris.Api;
 using Android;
 using AndroidX.Annotations;
-using JetBrains.Annotations;
 using Nyris.UI.Android.Custom;
 using Nyris.UI.Android.Extensions;
 using Nyris.UI.Android.Models;

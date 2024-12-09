@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Android.Graphics;
+﻿using Android.Graphics;
 using AndroidX.Annotations;
 using IO.Nyris.Camera;
-using JetBrains.Annotations;
 using Nyris.UI.Android.Models;
 using Nyris.UI.Common;
 

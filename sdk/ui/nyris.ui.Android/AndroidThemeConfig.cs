@@ -1,4 +1,3 @@
-using Android.Content;
 using Android.Graphics;
 using Newtonsoft.Json;
 
