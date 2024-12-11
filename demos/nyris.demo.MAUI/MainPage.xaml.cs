@@ -1,4 +1,8 @@
-﻿using Nyris.UI.Maui;
+﻿using System;
+using System.IO;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
+using Nyris.UI.Maui;
 
 namespace Nyris.Demo.MAUI;
 
