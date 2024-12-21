@@ -51,9 +51,9 @@ public class NyrisSearcher : INyrisSearcher
         return this;
     }
 
+    [Obsolete("This method is deprecated. It's not required anymore and it will be removed in a future version.")]
     public INyrisSearcher ExternalStoragePermissionDeniedErrorMessage([NonNull] string message)
     {
-        _config.ExternalStoragePermissionDeniedErrorMessage = message;
         return this;
     }
 

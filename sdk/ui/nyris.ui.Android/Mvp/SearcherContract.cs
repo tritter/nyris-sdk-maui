@@ -1,6 +1,5 @@
 ﻿using Android.Graphics;
 using AndroidX.Annotations;
-using IO.Nyris.Camera;
 using Nyris.UI.Android.Models;
 using Nyris.UI.Common;
 
@@ -19,6 +18,8 @@ namespace Nyris.UI.Android.Mvp
             void OnBackPressed();
             void OnOkErrorClick();
             void OnPermissionsDenied(IList<string> permissions);
+
+            void OnPictureTakenOriginal(byte[] image);
         }
 
         internal interface IView : IMvpView<IPresenter>
@@ -26,8 +27,8 @@ namespace Nyris.UI.Android.Mvp
             void TintViews(AndroidThemeConfig theme);
             void StartCircleViewAnimation();
             void SetCaptureLabel(string label);
-            void AddCameraCallback([NonNull] ICallback callback);
-            void RemoveCameraCallback([NonNull] ICallback callback);
+            //void AddCameraCallback([NonNull] ICallback callback);
+            //void RemoveCameraCallback([NonNull] ICallback callback);
             void StartCamera();
             void StopCamera();
             void HideLabelCapture();

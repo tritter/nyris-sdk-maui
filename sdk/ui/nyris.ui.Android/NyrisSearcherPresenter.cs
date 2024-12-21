@@ -1,5 +1,4 @@
-﻿using IO.Nyris.Camera;
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using Android.Graphics;
 using Android.Content;
 using System.Reactive.Concurrency;
@@ -16,7 +15,7 @@ using Nyris.UI.Common;
 
 namespace Nyris.UI.Android
 {
-    internal class NyrisSearcherPresenter : Java.Lang.Object, SearcherContract.IPresenter, ICallback
+    internal class NyrisSearcherPresenter : Java.Lang.Object, SearcherContract.IPresenter
     {
         private enum PresenterStatus { CameraListening, Cropping, Searching }
         private SearcherContract.IView _view;
@@ -24,7 +23,6 @@ namespace Nyris.UI.Android
         private NyrisSearcherConfig _config;
         private CompositeDisposable _compositeDisposable;
         private Bitmap _bitmapForCropping;
-        private Size _imageSize;
         private PresenterStatus _presenterStatus;
         private RectF _newRectF;
         private AndroidThemeConfig? _theme;
@@ -51,13 +49,11 @@ namespace Nyris.UI.Android
 
         public void OnPause()
         {
-            _view.RemoveCameraCallback(this);
             _view?.StopCamera();
         }
 
         public void OnResume()
         {
-            _view.AddCameraCallback(this);
             if (_presenterStatus == PresenterStatus.Cropping)
             {
                 return;
@@ -123,7 +119,7 @@ namespace Nyris.UI.Android
             _view.ShowError(message);
         }
 
-        public void OnPictureTakenOriginal(BaseCameraView cameraView, byte[] image)
+        public void OnPictureTakenOriginal(byte[] image)
         {
             _view?.StopCamera();
             var bitmap = BitmapFactory.DecodeByteArray(image, 0, image.Length);
@@ -140,12 +136,8 @@ namespace Nyris.UI.Android
                 (int)_newRectF.Top,
                 (int)_newRectF.Width(),
                 (int)_newRectF.Height());
-
-            var stream = new MemoryStream();
-            croppedBitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
-            var bitmapData = stream.ToArray();
-            var context = _view as Context;
-            var image = ImageUtils.Companion.Resize(context, bitmapData, 512, 512);
+            
+            var imageBytes = croppedBitmap.Optimize();
 
             _view?.HideCircleView();
             _view?.HideValidateView();
@@ -155,12 +147,12 @@ namespace Nyris.UI.Android
             
             _nyrisApi.ImageMatching
                 .Limit(_config.Limit)
-                .Match(image)
+                .Match(imageBytes)
                 .SubscribeOn(NewThreadScheduler.Default)
                 .ObserveOn(new LooperScheduler(Looper.MainLooper))
                 .Subscribe(response =>
                 {
-                    _view?.SendResult(new OfferResponse(response, image)
+                    _view?.SendResult(new OfferResponse(response, imageBytes)
                     {
                         TakenImagePath = _config.LastTakenPicturePath
                     });
@@ -230,10 +222,6 @@ namespace Nyris.UI.Android
                 {
                     _view.ShowError(_config.CameraPermissionDeniedErrorMessage);
                 }
-                if (permission == Manifest.Permission.WriteExternalStorage)
-                {
-                    _view.ShowError(_config.ExternalStoragePermissionDeniedErrorMessage);
-                }
             }
         }
 
@@ -241,7 +229,6 @@ namespace Nyris.UI.Android
         {
             _presenterStatus = PresenterStatus.Cropping;
             _bitmapForCropping = bitmap;
-            _imageSize = new Size(_bitmapForCropping.Width, _bitmapForCropping.Height);
             _view?.SetImPreviewBitmap(_bitmapForCropping);
 
             _view?.ShowImageCameraPreview();
@@ -311,19 +298,5 @@ namespace Nyris.UI.Android
                 });
             }
         }
-
-        #region Ignore
-        public void OnCameraClosed(BaseCameraView cameraView)
-        {
-        }
-
-        public void OnCameraOpened(BaseCameraView cameraView)
-        {
-        }
-
-        public void OnPictureTaken(BaseCameraView cameraView, byte[] image)
-        {
-        }
-        #endregion
     }
 }

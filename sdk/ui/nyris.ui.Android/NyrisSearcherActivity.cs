@@ -6,9 +6,10 @@ using Android.OS;
 using Android.Views;
 using AndroidX.AppCompat.App;
 using AndroidX.Core.Content;
-using IO.Nyris.Camera;
+using IO.Nyris.Sdk.Camera;
 using IO.Nyris.Croppingview;
 using Java.Interop;
+using Kotlin.Jvm.Internal;
 using Newtonsoft.Json;
 using Nyris.UI.Android.Extensions;
 using Nyris.UI.Android.Custom;
@@ -97,10 +98,8 @@ namespace Nyris.UI.Android
         {
             base.OnResume();
             var isCameraPermissionGrantted = ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) == Permission.Granted;
-            var isReadSdCardPermissionGrantted = ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadExternalStorage) == Permission.Granted;
-            var isWriteSdCardPermissionGrantted = ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) == Permission.Granted;
 
-            if (isCameraPermissionGrantted && isReadSdCardPermissionGrantted && isWriteSdCardPermissionGrantted)
+            if (isCameraPermissionGrantted)
             {
                 _presenter?.OnResume();
             }
@@ -110,16 +109,6 @@ namespace Nyris.UI.Android
                 if (!isCameraPermissionGrantted)
                 {
                     permissions.Add(Manifest.Permission.Camera);
-                }
-                if (!isReadSdCardPermissionGrantted)
-                {
-                    permissions.Add(Manifest.Permission.ReadExternalStorage);
-
-                }
-                if (!isWriteSdCardPermissionGrantted)
-                {
-                    permissions.Add(Manifest.Permission.WriteExternalStorage);
-
                 }
                 _presenter.OnPermissionsDenied(permissions);
             }
@@ -179,16 +168,6 @@ namespace Nyris.UI.Android
             _captureLabel.Text = label;
         }
 
-        public void AddCameraCallback(ICallback callback)
-        {
-            _cameraView?.AddCallback(callback);
-        }
-
-        public void RemoveCameraCallback(ICallback callback)
-        {
-            _cameraView?.RemoveCallback(callback);
-        }
-
         public void StartCamera()
         {
             _cameraView?.Start();
@@ -197,6 +176,7 @@ namespace Nyris.UI.Android
         public void StopCamera()
         {
             _cameraView?.Stop();
+            _cameraView?.Release();
         }
 
         public void HideLabelCapture()
@@ -248,10 +228,18 @@ namespace Nyris.UI.Android
         {
             _progress.Hide();
         }
-
         public void TakePicture()
         {
-            _cameraView?.TakePicture();
+            var block = new CaptureBlock<ImageResult>((result) =>
+            {
+                result.GetOriginalImage().SaveImageToInternalStorage(this);
+                RunOnUiThread(() =>
+                {
+                    _presenter?.OnPictureTakenOriginal(result.GetOriginalImage());
+                });
+            });
+            var kClass = Reflection.GetOrCreateKotlinClass(Java.Lang.Class.FromType(typeof(ImageResult)));
+            _cameraView?.Capture(0, kClass, block);
         }
 
         public void SetImPreviewBitmap(Bitmap bitmap)
@@ -308,12 +296,12 @@ namespace Nyris.UI.Android
 
         private void CreateSearcherConfig()
         {
-            var takenImageUri = ImageUtils.Companion.GetPhotoFileUri(this, "photo.jpg");
+            var takenImageUri = Utils.DefaultPathForLastTakenImage(this);
             _settings = GetSharedPreferences("NyrisSearcherSettings", FileCreationMode.Private);
-
+            
             var extraJson = Intent.GetStringExtra(NyrisSearcher.ConfigKey);
             _config = JsonConvert.DeserializeObject<NyrisSearcherConfig>(extraJson);
-            _config.LastTakenPicturePath = takenImageUri.Path;
+            _config.LastTakenPicturePath = takenImageUri;
             _config.LastCroppingRegion = new Common.Region
             {
                 Left = _settings.GetFloat("left", 0),

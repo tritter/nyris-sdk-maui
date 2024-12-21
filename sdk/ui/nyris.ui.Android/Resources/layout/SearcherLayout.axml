@@ -8,17 +8,13 @@
         android:background="@android:color/black"
         tools:context=".MainActivity">
 
-    <io.nyris.camera.CameraView
+    <io.nyris.sdk.camera.CameraView
             android:id="@+id/camera"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:background="@android:color/black"
-            app:autoFocus="true"
-            app:imageHeight="512"
-            app:imageWidth="512"
-            app:recognition="none"
-            app:saveImage="true"/>
+            android:layout_width="match_parent"
+            app:capture_mode="screenshot"
+            app:compression_format="webp"
+            app:focus_mode="automatic" />
 
     <TextView
             android:id="@+id/tvCaptureLabel"
