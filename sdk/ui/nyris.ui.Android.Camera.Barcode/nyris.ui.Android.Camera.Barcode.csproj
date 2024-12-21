@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net9.0-android</TargetFramework>
+        <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>Nyris.UI.Android.Camera.Barcode</AssemblyName>
+        <RootNamespace>Nyris.UI.Android.Camera.Barcode</RootNamespace>
+        <PackageId>Nyris.UI.Android.Camera.Barcode</PackageId>
+        <Authors>Nyris.UI.Android.Camera.Barcode</Authors>
+        <Company>Nyris.UI.Android.Camera.Barcode</Company>
+        <Product>Nyris.UI.Android.Camera.Barcode</Product>
+    </PropertyGroup>
+    <ItemGroup>
+        <AndroidLibrary Update="Jars\camera-feature-barcode-release.aar">
+            <Bind>true</Bind>
+            <Pack>true</Pack>
+        </AndroidLibrary>
+    </ItemGroup>
+</Project>

@@ -12,9 +12,22 @@
         <Product>Nyris.UI.Android.Camera</Product>
     </PropertyGroup>
     <ItemGroup>
-      <AndroidLibrary Update="Jars\camera-lib-release.aar">
-        <Bind>true</Bind>
-        <Pack>true</Pack>
-      </AndroidLibrary>
+        <AndroidLibrary Update="Jars\camera-view-release.aar">
+            <Bind>true</Bind>
+            <Pack>true</Pack>
+        </AndroidLibrary>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\nyris.ui.Android.Camera.Barcode\nyris.ui.Android.Camera.Barcode.csproj" />
+      <ProjectReference Include="..\nyris.ui.Android.Camera.Capture\nyris.ui.Android.Camera.Capture.csproj" />
+      <ProjectReference Include="..\nyris.ui.Android.Camera.Core\nyris.ui.Android.Camera.Core.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Xamarin.AndroidX.Camera.Core" Version="1.4.1" />
+      <PackageReference Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.4.1" />
+      <PackageReference Include="Xamarin.AndroidX.Camera.Camera2" Version="1.4.1" />
+      <PackageReference Include="Xamarin.AndroidX.Camera.View" Version="1.4.1" />
+      <PackageReference Include="Xamarin.AndroidX.DataBinding.ViewBinding" Version="8.7.3" />
+      <PackageReference Include="Xamarin.Google.MLKit.BarcodeScanning" Version="117.3.0.1" />
     </ItemGroup>
 </Project>

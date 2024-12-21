@@ -1,0 +1,7 @@
+﻿<metadata>
+  <attr path="api/package[@name='io.nyris.sdk.camera.core']/class[@name='CompressionFormat.Companion']" name="managedName">CompanionCls</attr>
+  <attr path="api/package[@name='io.nyris.sdk.camera.core']/class[@name='FeatureMode.Companion']" name="managedName">CompanionCls</attr>
+  <attr path="api/package[@name='io.nyris.sdk.camera.core']/class[@name='FocusMode.Companion']" name="managedName">CompanionCls</attr>
+  <attr path="api/package[@name='io.nyris.sdk.camera.core']/class[@name='CaptureMode.Companion']" name="managedName">CompanionCls</attr>
+  <attr path="api/package[@name='io.nyris.sdk.camera.core']/class[@name='BarcodeFormat.Companion']" name="managedName">CompanionCls</attr>
+</metadata>

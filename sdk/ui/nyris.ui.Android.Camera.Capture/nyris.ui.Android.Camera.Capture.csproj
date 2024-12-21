@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net9.0-android</TargetFramework>
+        <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>Nyris.UI.Android.Camera.Capture</AssemblyName>
+        <RootNamespace>Nyris.UI.Android.Camera.Capture</RootNamespace>
+        <PackageId>Nyris.UI.Android.Camera.Capture</PackageId>
+        <Authors>Nyris.UI.Android.Camera.Capture</Authors>
+        <Company>Nyris.UI.Android.Camera.Capture</Company>
+        <Product>Nyris.UI.Android.Camera.Capture</Product>
+    </PropertyGroup>
+    <ItemGroup>
+        <AndroidLibrary Update="Jars\camera-feature-image-release.aar">
+            <Bind>true</Bind>
+            <Pack>true</Pack>
+        </AndroidLibrary>
+    </ItemGroup>
+</Project>
